@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+  <main class="wrap">
+    <a class="link" href="/characters/<%= character._id %>">← Cancel</a>
+
+    <section class="card">
+      <h2>Edit Character</h2>
+
+      <!-- TODO B1: This form should submit to POST /characters/:id -->
+      <form <!-- COMPLETE --> class="form">
+        <label>Name</label>
+        <input name="name" maxlength="40" value="<%= character.name %>" required />
+
+        <label>Type</label>
+        <select name="type" required>
+          <% types.forEach(t => { %>
+            <!-- COMPLETE -->
+          <% }) %>
+        </select>
+
+        <label>Trait</label>
+        <select name="trait" required>
+          <% traits.forEach(tr => { %>
+            <!-- COMPLETE -->
+          <% }) %>
+        </select>
+
+        <button class="btn" type="submit">Save</button>
+      </form>
+    </section>
+  </main>
+</body>
+</html>

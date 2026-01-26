@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+
+  <h1><%= character.name %></h1>
+
+  <div class="card">
+    <div class="row">
+      <div class="label">Type</div>
+      <div class="value"><%= character.type %></div>
+    </div>
+
+    <div class="row">
+      <div class="label">Trait</div>
+      <div class="value"><%= character.trait %></div>
+    </div>
+
+    <a class="button" href="/">← Back</a>
+  </div>
+
+</body>
+</html>

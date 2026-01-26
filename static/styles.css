@@ -1,0 +1,21 @@
+/* TODO D1: Navbar that stays ONE line */
+.navform {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.nav-input, .nav-select {
+  flex: 0 0 auto;
+}
+
+/* Optional nice widths */
+.nav-input { width: 220px; }
+.nav-select { width: 150px; }
+.nav-select-sort { width: 160px; }
+
+/* TODO D2: Table ABOVE form is just layout order in HTML (no CSS needed) */

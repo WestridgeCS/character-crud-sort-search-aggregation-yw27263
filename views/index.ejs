@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title><%= title %></title>
+  <link rel="stylesheet" href="/styles.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="brand">
+        <span class="logo">⚔️</span>
+        <div>
+          <div class="brand-title"><%= title %></div>
+          <div class="brand-sub">Filter • Sort • Search</div>
+        </div>
+      </div>
+
+      <!-- ONE-LINE NAV CONTROLS (no wrapping; scrolls horizontally if needed) -->
+      <form class="navform" action="/" method="get">
+        <input
+          class="nav-input"
+          type="text"
+          name="q"
+          placeholder="Search name…"
+          value="<%= query.q %>"
+        />
+
+        <select class="nav-select" name="type" aria-label="Filter type">
+          <option value="">Type (any)</option>
+          <% types.forEach(t => { %>
+            <option value="<%= t %>" <%= query.type === t ? 'selected' : '' %>><%= t %></option>
+          <% }) %>
+        </select>
+
+        <select class="nav-select" name="trait" aria-label="Filter trait">
+          <option value="">Trait (any)</option>
+          <% traits.forEach(tr => { %>
+            <option value="<%= tr %>" <%= query.trait === tr ? 'selected' : '' %>><%= tr %></option>
+          <% }) %>
+        </select>
+
+        <select class="nav-select nav-select-sort" name="sort" aria-label="Sort">
+          <option value="newest" <%= query.sort === 'newest' ? 'selected' : '' %>>Newest</option>
+          <option value="oldest" <%= query.sort === 'oldest' ? 'selected' : '' %>>Oldest</option>
+          <option value="name_asc" <%= query.sort === 'name_asc' ? 'selected' : '' %>>Name A→Z</option>
+          <option value="name_desc" <%= query.sort === 'name_desc' ? 'selected' : '' %>>Name Z→A</option>
+          <option value="type_asc" <%= query.sort === 'type_asc' ? 'selected' : '' %>>Type A→Z</option>
+          <option value="trait_asc" <%= query.sort === 'trait_asc' ? 'selected' : '' %>>Trait A→Z</option>
+        </select>
+
+        <button class="btn" type="submit">Apply</button>
+        <a class="btn btn-ghost" href="/">Reset</a>
+      </form>
+    </div>
+  </header>
+
+  <main class="wrap">
+
+    <!-- TABLE FIRST -->
+    <section class="card">
+      <div class="table-head">
+        <h2>Characters</h2>
+        <div class="pill">
+          Showing <strong><%= summary.total %></strong>
+        </div>
+      </div>
+
+      <% if (characters.length === 0) { %>
+        <p class="muted">No matches. Try changing filters or create a character.</p>
+      <% } else { %>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Type</th>
+                <th>Trait</th>
+                <th class="right">Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% characters.forEach(c => { %>
+                <tr>
+                  <td>
+                    <a class="link" href="/characters/<%= c._id %>"><%= c.name %></a>
+                  </td>
+                  <td><%= c.type %></td>
+                  <td><%= c.trait %></td>
+                  <td class="right">
+                    <a class="link" href="/characters/<%= c._id %>/edit">Edit</a>
+                    <form action="/characters/<%= c._id %>/delete" method="post" class="inline">
+                      <button class="btn btn-danger" type="submit">Delete</button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            </tbody>
+          </table>
+        </div>
+      <% } %>
+    </section>
+
+    <!-- CREATE FORM SECOND -->
+    <section class="card">
+      <h2>Create Character</h2>
+
+      <form action="/characters" method="post" class="form form-wide">
+        <div class="form-row">
+          <div class="field field-name">
+            <label>Name</label>
+            <input name="name" maxlength="40" required />
+          </div>
+
+          <div class="field">
+            <label>Type</label>
+            <select name="type" required>
+              <option value="" disabled selected>Select</option>
+              <% types.forEach(t => { %>
+                <option value="<%= t %>"><%= t %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Trait</label>
+            <select name="trait" required>
+              <option value="" disabled selected>Select</option>
+              <% traits.forEach(tr => { %>
+                <option value="<%= tr %>"><%= tr %></option>
+              <% }) %>
+            </select>
+          </div>
+
+          <div class="field field-btn">
+            <label class="invisible">Create</label>
+            <button class="btn" type="submit">Create</button>
+          </div>
+        </div>
+      </form>
+    </section>
+
+    <!-- (Optional) Aggregates kept, but compact -->
+    <section class="card">
+      <h2>Aggregates</h2>
+      <p class="muted">Counts based on current filters.</p>
+
+      <div class="agg">
+        <div class="agg-box">
+          <div class="agg-title">By Type</div>
+          <ul class="list">
+            <% if (summary.byType.length === 0) { %>
+              <li class="muted">None</li>
+            <% } %>
+            <% summary.byType.forEach(row => { %>
+              <li><strong><%= row._id %></strong> <span class="muted">·</span> <%= row.count %></li>
+            <% }) %>
+          </ul>
+        </div>
+
+        <div class="agg-box">
+          <div class="agg-title">By Trait</div>
+          <ul class="list">
+            <% if (summary.byTrait.length === 0) { %>
+              <li class="muted">None</li>
+            <% } %>
+            <% summary.byTrait.forEach(row => { %>
+              <li><strong><%= row._id %></strong> <span class="muted">·</span> <%= row.count %></li>
+            <% }) %>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</body>
+</html>
