@@ -7,7 +7,6 @@
   <link rel="stylesheet" href="/styles.css" />
 </head>
 <body>
-
   <header class="topbar">
     <div class="topbar-inner">
       <div class="brand">
@@ -75,34 +74,15 @@
             <thead>
               <tr>
                 <th>
-                  <a class="link"
-                    href="/?<%= new URLSearchParams({
-                      ...query,
-                      sort: query.sort === 'name_asc' ? 'name_desc' : 'name_asc'
-                    }).toString() %>">
-                    Name
-                    <%= query.sort === 'name_asc' ? '▲' : query.sort === 'name_desc' ? '▼' : '' %>
-                  </a>
+                  <a href="<%= query.sort ===  "name_asc" ? '/?sort=name_desc' : '/?sort=name_asc' %>" >Name</a>
                 </th>
 
                 <th>
-                  <a class="link"
-                    href="/?<%= new URLSearchParams({
-                      ...query,
-                      sort: 'type_asc'
-                    }).toString() %>">
-                    Type
-                  </a>
+                  <a href="<%= query.sort ===  "type_asc" ? '/?sort=type_desc' : '/?sort=type_asc' %>">Type</a>
                 </th>
 
                 <th>
-                  <a class="link"
-                    href="/?<%= new URLSearchParams({
-                      ...query,
-                      sort: 'trait_asc'
-                    }).toString() %>">
-                    Trait
-                  </a>
+                  <a href="<%= query.sort ===  "trait_asc" ? '/?sort=trait_desc' : '/?sort=trait_asc' %>">Trait</a>
                 </th>
 
                 <th class="right">Actions</th>
