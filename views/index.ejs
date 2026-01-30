@@ -75,9 +75,37 @@
           <table>
             <thead>
               <tr>
-                <th>Name</th>
-                <th>Type</th>
-                <th>Trait</th>
+                <th>
+                  <a class="link"
+                    href="/?<%= new URLSearchParams({
+                      ...query,
+                      sort: query.sort === 'name_asc' ? 'name_desc' : 'name_asc'
+                    }).toString() %>">
+                    Name
+                    <%= query.sort === 'name_asc' ? '▲' : query.sort === 'name_desc' ? '▼' : '' %>
+                  </a>
+                </th>
+
+                <th>
+                  <a class="link"
+                    href="/?<%= new URLSearchParams({
+                      ...query,
+                      sort: 'type_asc'
+                    }).toString() %>">
+                    Type
+                  </a>
+                </th>
+
+                <th>
+                  <a class="link"
+                    href="/?<%= new URLSearchParams({
+                      ...query,
+                      sort: 'trait_asc'
+                    }).toString() %>">
+                    Trait
+                  </a>
+                </th>
+
                 <th class="right">Actions</th>
               </tr>
             </thead>
@@ -149,7 +177,7 @@
 
       <div class="agg">
         <div class="agg-box">
-          <div class="agg-title">By Type</div>
+          <div class="agg-title">By Type (Most Common type: <%=summary.commonType%>)</div>
           <ul class="list">
             <% if (summary.byType.length === 0) { %>
               <li class="muted">None</li>
@@ -161,7 +189,7 @@
         </div>
 
         <div class="agg-box">
-          <div class="agg-title">By Trait</div>
+          <div class="agg-title">By Trait (Most Common trait: <%=summary.commonTrait%>)</div>
           <ul class="list">
             <% if (summary.byTrait.length === 0) { %>
               <li class="muted">None</li>

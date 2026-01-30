@@ -14,21 +14,21 @@
       <h2>Edit Character</h2>
 
       <!-- TODO B1: This form should submit to POST /characters/:id -->
-      <form <!-- COMPLETE --> class="form">
+      <form action="/characters/<%= character._id%>" method="post" class="form">
         <label>Name</label>
         <input name="name" maxlength="40" value="<%= character.name %>" required />
 
         <label>Type</label>
         <select name="type" required>
           <% types.forEach(t => { %>
-            <!-- COMPLETE -->
+            <option value="<%=t%>" <%= character.type===t ? 'selected': ''%> ><%=t%></option>
           <% }) %>
         </select>
 
         <label>Trait</label>
         <select name="trait" required>
-          <% traits.forEach(tr => { %>
-            <!-- COMPLETE -->
+          <% traits.forEach(t => { %>
+            <option value="<%=t%>" <%= character.trait===t ? 'selected': ''%> ><%=t%></option>
           <% }) %>
         </select>
 

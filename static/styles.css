@@ -1,21 +1,471 @@
-/* TODO D1: Navbar that stays ONE line */
-.navform {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: nowrap;
-  white-space: nowrap;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+:root {
+
+  --bg: #f6f7fb;
+
+  --card: #ffffff;
+
+  --text: #222;
+
+  --muted: #666;
+
+  --line: #ddd;
+
+  --link: #0b57d0;
+
 }
+
+ 
+
+* { box-sizing: border-box; }
+
+ 
+
+body {
+
+  margin: 0;
+
+  font-family: system-ui, Arial, sans-serif;
+
+  background: var(--bg);
+
+  color: var(--text);
+
+}
+
+ 
+
+.wrap {
+
+  max-width: 1100px;
+
+  margin: 22px auto 40px;
+
+  padding: 0 16px;
+
+}
+
+ 
+
+/* Top bar */
+
+.topbar {
+
+  position: sticky;
+
+  top: 0;
+
+  z-index: 10;
+
+  background: #fff;
+
+  border-bottom: 1px solid var(--line);
+
+}
+
+ 
+
+.topbar-inner {
+
+  max-width: 1100px;
+
+  margin: 0 auto;
+
+  padding: 10px 16px;
+
+  display: flex;
+
+  gap: 14px;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+}
+
+ 
+
+.brand {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  min-width: 250px;
+
+  white-space: nowrap;
+
+}
+
+ 
+
+.logo { font-size: 20px; }
+
+.brand-title { font-weight: 850; line-height: 1.1; }
+
+.brand-sub { font-size: 12px; color: var(--muted); }
+
+ 
+
+/* ONE LINE NAV FORM (no wrapping) */
+
+.navform {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 8px;
+
+  flex-wrap: nowrap;           /* KEY: do not wrap */
+
+  white-space: nowrap;
+
+  overflow-x: auto;            /* if screen is too small, scroll horizontally */
+
+  -webkit-overflow-scrolling: touch;
+
+  padding-bottom: 2px;
+
+}
+
+ 
+
+.navform::-webkit-scrollbar {
+
+  height: 8px;
+
+}
+
+.navform::-webkit-scrollbar-thumb {
+
+  background: #d7d7d7;
+
+  border-radius: 999px;
+
+}
+
+ 
 
 .nav-input, .nav-select {
-  flex: 0 0 auto;
+
+  padding: 8px 10px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 10px;
+
+  background: #fff;
+
+  min-height: 36px;
+
+  flex: 0 0 auto;              /* KEY: prevent shrinking into nonsense */
+
 }
 
-/* Optional nice widths */
+ 
+
 .nav-input { width: 220px; }
+
 .nav-select { width: 150px; }
+
 .nav-select-sort { width: 160px; }
 
-/* TODO D2: Table ABOVE form is just layout order in HTML (no CSS needed) */
+ 
+
+/* Cards */
+
+.card {
+
+  background: var(--card);
+
+  border: 1px solid var(--line);
+
+  border-radius: 12px;
+
+  padding: 16px;
+
+  margin: 16px 0;
+
+}
+
+ 
+
+h2 { margin: 0 0 10px; font-size: 18px; }
+
+ 
+
+.muted { color: var(--muted); }
+
+ 
+
+.pill {
+
+  border: 1px solid var(--line);
+
+  background: #fff;
+
+  border-radius: 999px;
+
+  padding: 6px 10px;
+
+  font-size: 13px;
+
+  color: var(--muted);
+
+}
+
+ 
+
+/* Table */
+
+.table-head {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 10px;
+
+  flex-wrap: wrap;
+
+}
+
+ 
+
+.table-wrap { overflow-x: auto; }
+
+ 
+
+table {
+
+  width: 100%;
+
+  border-collapse: collapse;
+
+  margin-top: 10px;
+
+}
+
+ 
+
+th, td {
+
+  border-top: 1px solid var(--line);
+
+  padding: 10px;
+
+  text-align: left;
+
+}
+
+ 
+
+th {
+
+  font-size: 13px;
+
+  color: var(--muted);
+
+  border-top: none;
+
+}
+
+ 
+
+.right { text-align: right; }
+
+ 
+
+.inline {
+
+  display: inline;
+
+  margin-left: 8px;
+
+}
+
+ 
+
+/* Create form row */
+
+.form label {
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  font-weight: 650;
+
+}
+
+ 
+
+.form input, .form select {
+
+  width: 100%;
+
+  padding: 8px;
+
+  border: 1px solid var(--line);
+
+  border-radius: 10px;
+
+}
+
+ 
+
+.form-wide .form-row {
+
+  display: grid;
+
+  grid-template-columns: 2fr 1fr 1fr auto;
+
+  gap: 12px;
+
+  align-items: end;
+
+}
+
+ 
+
+.field-btn button { width: 100%; }
+
+ 
+
+.invisible {
+
+  visibility: hidden;
+
+}
+
+ 
+
+/* Aggregates */
+
+.agg {
+
+  display: grid;
+
+  grid-template-columns: 1fr 1fr;
+
+  gap: 12px;
+
+}
+
+ 
+
+.agg-box {
+
+  border: 1px solid var(--line);
+
+  border-radius: 12px;
+
+  padding: 12px;
+
+  background: #fff;
+
+}
+
+ 
+
+.agg-title {
+
+  font-weight: 800;
+
+  margin-bottom: 8px;
+
+}
+
+ 
+
+.list { margin: 0; padding-left: 18px; }
+
+ 
+
+/* Links and buttons */
+
+.link {
+
+  color: var(--link);
+
+  text-decoration: none;
+
+  font-weight: 650;
+
+}
+
+.link:hover { text-decoration: underline; }
+
+ 
+
+.btn {
+
+  padding: 8px 10px;
+
+  border-radius: 10px;
+
+  border: 1px solid #333;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  min-height: 36px;
+
+  flex: 0 0 auto;
+
+}
+
+ 
+
+.btn-ghost {
+
+  border-color: #888;
+
+  color: #333;
+
+  text-decoration: none;
+
+  display: inline-flex;
+
+  align-items: center;
+
+}
+
+ 
+
+.btn-danger {
+
+  border-color: #b00020;
+
+  color: #b00020;
+
+}
+
+ 
+
+/* Responsive: keep nav on one line but allow scroll; stack big form on narrow screens */
+
+@media (max-width: 900px) {
+
+  .topbar-inner { flex-wrap: wrap; }
+
+  .form-wide .form-row { grid-template-columns: 1fr; }
+
+  .agg { grid-template-columns: 1fr; }
+
+ 
+
+  /* keep widths reasonable on mobile while still one-line/scrollable */
+
+  .nav-input { width: 180px; }
+
+  .nav-select { width: 140px; }
+
+  .nav-select-sort { width: 150px; }
+
+}
